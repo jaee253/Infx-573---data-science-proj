@@ -1,0 +1,26 @@
+
+# load the csv file
+New.user.data <- read.csv("yelp_users_v1_1.csv", header=TRUE)
+# convert integer columns into string
+New.user.data$compliments <- as.character(New.user.data$compliments)
+
+New.user.data$votes <- as.character(New.user.data$votes)
+
+New.user.data$elite <- as.character(New.user.data$elite)
+
+# check the format of the column
+typeof(New.user.data$compliments)
+
+# Adding +1 since we are counting the number of commas to get the elite count
+for(i in 1:nrow(New.user.data))
+{
+  if (New.user.data$count_elite [i] != 0)
+  {
+    New.user.data$count_elite [i] = New.user.data$count_elite [i] + 1
+  }
+}
+
+# split the compliments column on , as separator
+New.user.data <-concat.split(New.user.data, "compliments", sep = ",")
+
+View(New.user.data)
